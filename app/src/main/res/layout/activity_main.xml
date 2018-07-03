@@ -1,35 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#2cc7ff"
     android:layout_height="match_parent"
-    tools:context="com.ramadhany.vodjo.latihan1.MainActivity">
+    tools:context=".MainActivity">
 
+    <LinearLayout
+        android:id="@+id/content"
+        android:orientation="vertical"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp"
-        android:text="Main Activity"
-        android:textSize="35sp"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="52dp" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Main Activity"
-        android:textSize="25sp"
-        tools:layout_editor_absoluteX="163dp"
-        tools:layout_editor_absoluteY="52dp"
-        android:layout_gravity="center"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView3" />
+            <ImageView
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Welcome to"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:text="DFMS Apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/btnMaps"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white_round"
+                android:focusable="true"
+                tools:ignore="NestedWeights">
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    app:layout_heightPercent="60%"
+                    app:layout_widthPercent="60%"
+                    app:srcCompat="@drawable/ic_map" />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/image1"
+                    android:text="Maps"
+                    app:layout_widthPercent="80%"
+                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/btnRiskArea"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:layout_marginStart="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white_round"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/image2"
+                    app:srcCompat="@drawable/ic_map"
+                    app:layout_widthPercent="60%"
+                    app:layout_heightPercent="60%"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/image2"
+                    android:text="Risk Of Area"
+                    app:layout_widthPercent="80%"
+                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+            </android.support.percent.PercentRelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/btnUserProf"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:layout_marginEnd="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white_round"
+                android:focusable="true"
+                tools:ignore="NestedWeights">
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/image3"
+                    app:srcCompat="@drawable/ic_map"
+                    app:layout_widthPercent="60%"
+                    app:layout_heightPercent="60%"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/image3"
+                    android:text="User Profile"
+                    app:layout_widthPercent="80%"
+                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+            </android.support.percent.PercentRelativeLayout>
+
+            <android.support.percent.PercentRelativeLayout
+                android:id="@+id/btnAbout"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:layout_marginStart="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_white_round"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:layout_heightPercent="60%"
+                    app:layout_widthPercent="60%"
+                    app:srcCompat="@drawable/ic_map" />
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@id/image4"
+                    android:text="About Apps"
+                    app:layout_widthPercent="80%"
+                    android:gravity="center_horizontal"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
+            </android.support.percent.PercentRelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

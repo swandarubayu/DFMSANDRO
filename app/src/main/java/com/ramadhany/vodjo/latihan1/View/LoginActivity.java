@@ -17,6 +17,8 @@ import com.ramadhany.vodjo.latihan1.Model.RegisterBody;
 import com.ramadhany.vodjo.latihan1.Model.Response.ResponseLogin;
 import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.ApiService;
+import com.ramadhany.vodjo.latihan1.helper.SQLiteHandler;
+import com.ramadhany.vodjo.latihan1.helper.SessionManager;
 import com.ramadhany.vodjo.latihan1.helper.UtilsApi;
 
 import org.json.JSONException;
@@ -41,13 +43,31 @@ public class LoginActivity extends AppCompatActivity {
     Context mContext;
     ApiService mApiService;
 
+    private SessionManager session;
+    private SQLiteHandler db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // SQLite database handler
+        db = new SQLiteHandler(getApplicationContext().getApplicationContext());
+
+        // Session manager
+        session = new SessionManager(getApplicationContext().getApplicationContext());
+
         mContext = this;
         mApiService = UtilsApi.getAPIService(); // meng-init yang ada di package apihelper
         initComponents();
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
+            // launch new intent instead of loading fragment
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initComponents() {
@@ -82,15 +102,25 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("Doing", "res code :" + response.code() );
                             if (response.isSuccessful()){
                                 if (!response.body().error){
+
+                                    // Create login session
+                                    session.setLogin(true);
+
+                                    String username = response.body().username;
+
                                     Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
+                                    db.addUser(username, username);
+
                                 }else {
                                     Toast.makeText(mContext, "Username tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }
                                 loading.dismiss();
                             } else {
+                                // Create login session
+                                session.setLogin(false);
                                 loading.dismiss();
                             }
                         }
@@ -101,5 +131,4 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
-    }
-
+}
