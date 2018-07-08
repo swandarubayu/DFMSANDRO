@@ -27,13 +27,13 @@
             android:paddingBottom="16dp"
             android:gravity="center_vertical"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent">
+            >
 
             <ImageView
+                android:layout_width="100dp"
+                android:layout_height="70dp"
                 android:layout_marginEnd="16dp"
-                app:srcCompat="@mipmap/ic_launcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/dss" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -43,14 +43,14 @@
                 <TextView
                     android:text="Welcome to"
                     android:textSize="18sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/holo_blue_bright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/holo_blue_light"
                     android:text="DFMS Apps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -82,9 +82,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:src="@drawable/icon"
                     app:layout_heightPercent="60%"
                     app:layout_widthPercent="60%"
-                    app:srcCompat="@drawable/ic_map" />
+                     />
 
                 <TextView
                     android:layout_marginTop="2dp"
@@ -114,7 +115,7 @@
                 <ImageView
                     android:layout_centerHorizontal="true"
                     android:id="@+id/image2"
-                    app:srcCompat="@drawable/ic_map"
+                    android:src="@drawable/roa"
                     app:layout_widthPercent="60%"
                     app:layout_heightPercent="60%"
                     android:layout_height="wrap_content"
@@ -157,7 +158,7 @@
                 <ImageView
                     android:layout_centerHorizontal="true"
                     android:id="@+id/image3"
-                    app:srcCompat="@drawable/ic_map"
+                    android:src="@drawable/userprof"
                     app:layout_widthPercent="60%"
                     app:layout_heightPercent="60%"
                     android:layout_height="wrap_content"
@@ -192,10 +193,11 @@
                     android:id="@+id/image4"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+                    android:src="@drawable/about"
                     android:layout_centerVertical="true"
                     app:layout_heightPercent="60%"
                     app:layout_widthPercent="60%"
-                    app:srcCompat="@drawable/ic_map" />
+                     />
 
                 <TextView
                     android:layout_marginTop="2dp"

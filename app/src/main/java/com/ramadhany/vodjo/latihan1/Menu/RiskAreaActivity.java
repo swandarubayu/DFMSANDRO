@@ -6,9 +6,7 @@ import android.view.MenuItem;
 
 import com.ramadhany.vodjo.latihan1.R;
 
-/**
- * Created by user on 7/3/2018.
- */
+
 
 public class RiskAreaActivity extends AppCompatActivity {
 
