@@ -107,12 +107,15 @@ public class LoginActivity extends AppCompatActivity {
                                     session.setLogin(true);
 
                                     String username = response.body().username;
+                                    String user_id = String.valueOf(response.body().id);
+
+                                    Log.d("user_id", user_id);
 
                                     Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                    db.addUser(username, username);
+                                    db.addUser(username, user_id, user_id);
 
                                 }else {
                                     Toast.makeText(mContext, "Username tidak ditemukan", Toast.LENGTH_SHORT).show();

@@ -8,13 +8,11 @@ public class RegisterBody {
     private String username;
     private String password;
     private String domisili;
-    private int role;
 
-    public RegisterBody(String username, String password, String domisili, int role) {
+    public RegisterBody(String username, String password, String domisili) {
         this.username = username;
         this.password = password;
         this.domisili = domisili;
-        this.role = role;
     }
 
     public String getUsername() {
@@ -39,13 +37,5 @@ public class RegisterBody {
 
     public void setDomisili(String domisili) {
         this.domisili = domisili;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
     }
 }

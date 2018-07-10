@@ -32,7 +32,7 @@ public class DaftarActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     EditText etDomisili;
-    EditText etRole;
+
 
     Button btnRegister;
     TextView txtLogin;
@@ -57,7 +57,6 @@ public class DaftarActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etDomisili = (EditText) findViewById(R.id.etDomisili);
-        etRole = (EditText) findViewById(R.id.etRole);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
 
@@ -79,7 +78,7 @@ public class DaftarActivity extends AppCompatActivity {
     }
 
     private void requestRegister() {
-        RegisterBody body = new RegisterBody(etUsername.getText().toString(),etPassword.getText().toString(),etDomisili.getText().toString(), Integer.parseInt(etRole.getText().toString()));
+        RegisterBody body = new RegisterBody(etUsername.getText().toString(),etPassword.getText().toString(),etDomisili.getText().toString());
             mApiService.registerRequest("application/json", body)
 
                     .enqueue(new Callback<ResponseBody>() {

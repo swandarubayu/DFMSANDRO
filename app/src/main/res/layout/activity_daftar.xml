@@ -65,16 +65,6 @@
             android:inputType="text|textPostalAddress"
             android:textColor="#000"/>
 
-        <EditText
-            android:id="@+id/etRole"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Role"
-            android:padding="8dp"
-            android:inputType="text|number"
-            android:textColor="#000"/>
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

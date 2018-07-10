@@ -3,6 +3,7 @@ package com.ramadhany.vodjo.latihan1.helper;
 import com.ramadhany.vodjo.latihan1.Model.LoginBody;
 import com.ramadhany.vodjo.latihan1.Model.RegisterBody;
 import com.ramadhany.vodjo.latihan1.Model.Response.ResponseLogin;
+import com.ramadhany.vodjo.latihan1.Model.UserMovBody;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,6 +27,10 @@ public interface ApiService {
     @POST("register")
     Call<ResponseBody> registerRequest(@Header("Content-Type") String header,
                                        @Body RegisterBody body);
+
+    @POST("usermov")
+    Call<ResponseBody> locationRequest(@Header("Content-Type") String header,
+                                       @Body UserMovBody body);
 
 
 }
