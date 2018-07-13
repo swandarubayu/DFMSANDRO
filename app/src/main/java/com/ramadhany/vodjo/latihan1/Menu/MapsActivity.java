@@ -99,7 +99,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
@@ -129,8 +129,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onConnected(Bundle bundle) {
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000);
-        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setInterval(10);
+        mLocationRequest.setFastestInterval(10);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
