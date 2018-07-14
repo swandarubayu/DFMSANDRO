@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1054155863122",
+    "firebase_url": "https://track-188316.firebaseio.com",
+    "project_id": "track-188316",
+    "storage_bucket": "track-188316.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054155863122:android:3f94d2c1d7b4559a",
+        "android_client_info": {
+          "package_name": "com.ramadhany.vodjo.latihan1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054155863122-7toekd8n7fe7mjss3m53pell9hm4d63i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC5cQjXP6wSOJhl4_HJ9vUCMhrFmNrS2g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

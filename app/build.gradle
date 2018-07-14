@@ -32,6 +32,7 @@ dependencies {
 //    implementation 'com.google.android.gms:play-services-maps:15.0.1'
 //    implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-location:11.0.2'
+    implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:percent:27.1.1'
@@ -44,3 +45,4 @@ dependencies {
     implementation 'com.google.android.gms:play-services:11.0.2'
 
 }
+apply plugin: 'com.google.gms.google-services'
