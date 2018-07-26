@@ -39,12 +39,7 @@ public class Splashscreen extends AppCompatActivity {
 
 
                 //jeda selesai Splashscreen
-                this.finish();
-            }
-
-            private void finish() {
-                // TODO Auto-generated method stub
-
+                finish();
             }
         }, splashInterval);
 

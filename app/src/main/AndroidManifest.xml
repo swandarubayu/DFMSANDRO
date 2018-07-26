@@ -47,7 +47,8 @@
         <activity android:name=".Menu.MapsActivity" />
         <activity android:name=".Menu.RiskAreaActivity" />
         <activity android:name=".Menu.UserProfActivity" />
-
+        <service android:name=".MyService" android:process=":my_service" />
+        <service android:name=".services.LocationMonitoringService" />
     </application>
 
 </manifest>
