@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DFMSandro.iml" filepath="$PROJECT_DIR$/DFMSandro.iml" />
-      <module fileurl="file://C:\xampp\htdocs\DFMSandro\Latihan1.iml" filepath="C:\xampp\htdocs\DFMSandro\Latihan1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DFMSANDRO.iml" filepath="$PROJECT_DIR$/DFMSANDRO.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

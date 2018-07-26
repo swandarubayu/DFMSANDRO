@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 
+import com.ramadhany.vodjo.latihan1.Controller.Setting;
 import com.ramadhany.vodjo.latihan1.Menu.MapsActivity;
 import com.ramadhany.vodjo.latihan1.Menu.RiskAreaActivity;
 import com.ramadhany.vodjo.latihan1.Menu.UserProfActivity;
@@ -112,5 +113,14 @@ public class MainActivity extends AppCompatActivity {
          startActivity(intent);
          finish();
      }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Setting(this).checkEnableGPS();
+        new Setting(this).forceEnableGPSAcess();
+        new Setting(this).getLocation();
+    }
+
 
 }
