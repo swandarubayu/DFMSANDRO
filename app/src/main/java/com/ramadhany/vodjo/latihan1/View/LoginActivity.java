@@ -13,20 +13,14 @@ import android.widget.Toast;
 
 import com.ramadhany.vodjo.latihan1.MainActivity;
 import com.ramadhany.vodjo.latihan1.Model.LoginBody;
-import com.ramadhany.vodjo.latihan1.Model.RegisterBody;
 import com.ramadhany.vodjo.latihan1.Model.Response.ResponseLogin;
+import com.ramadhany.vodjo.latihan1.MyService;
 import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.ApiService;
 import com.ramadhany.vodjo.latihan1.helper.SQLiteHandler;
 import com.ramadhany.vodjo.latihan1.helper.SessionManager;
 import com.ramadhany.vodjo.latihan1.helper.UtilsApi;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -108,15 +102,16 @@ public class LoginActivity extends AppCompatActivity {
 
                                     String username = response.body().username;
                                     String user_id = String.valueOf(response.body().id);
+                                    String domisili = String.valueOf(response.body().domisili);
 
-                                    Log.d("user_id", user_id);
+                                    Log.d("domisili", domisili);
 
                                     Toast.makeText(mContext, "Login berhasil", Toast.LENGTH_SHORT).show();
+
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                    db.addUser(username, user_id, user_id);
-
+                                    db.addUser(username, user_id, domisili);
                                 }else {
                                     Toast.makeText(mContext, "Username tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }

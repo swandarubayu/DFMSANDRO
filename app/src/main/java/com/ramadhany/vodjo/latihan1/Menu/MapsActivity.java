@@ -2,9 +2,14 @@ package com.ramadhany.vodjo.latihan1.Menu;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -25,6 +30,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.ramadhany.vodjo.latihan1.Model.GirdBody;
 import com.ramadhany.vodjo.latihan1.Model.UserMovBody;
 import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.ApiService;
@@ -33,8 +40,11 @@ import com.ramadhany.vodjo.latihan1.helper.SessionManager;
 import com.ramadhany.vodjo.latihan1.helper.UtilsApi;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -58,13 +68,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SessionManager session;
     private SQLiteHandler db;
 
-    Calendar calander;
-    SimpleDateFormat simpledateformat;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATIONS = 1;
+
+    LocationManager locationManager ;
+    boolean GpsStatus ;
+
+    String koordinat[];
+    String tepi[];
+    LatLng batas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            checkGpsStatus();
+            checkGpsStatus();
+        }
 
         mContext = this;
         mApiService = UtilsApi.getAPIService();
@@ -74,10 +94,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Session manager
         session = new SessionManager(getApplicationContext().getApplicationContext());
-
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-            checkLocationPermission();
-        }
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -86,20 +102,82 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    private void checkPermission(){
+        // Assume thisActivity is the current activity
+        int permissionCheck = ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(getApplicationContext(),"Permission already granted.",Toast.LENGTH_LONG).show();
+        } else {
+            requestPermission();
+        }
+    }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+    private void requestPermission(){
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(MapsActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(MapsActivity.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATIONS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATIONS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    public void checkGpsStatus(){
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if(GpsStatus == true) {
+            Toast.makeText(getApplicationContext(),"Location Services Is Enable.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getApplicationContext(),"Location Services Is Disable.",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
+    }
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+
+        getGird();
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
@@ -154,10 +232,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //Place current location marker
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        LatLng latLng = new LatLng(location.getLongitude(), location.getLatitude());
         MarkerOptions markerOptions = new MarkerOptions();
 
-        String loc = "POINT(" + String.valueOf(location.getLatitude() + " " + location.getLongitude() + ")");
+        String loc = "POINT(" + String.valueOf(location.getLongitude() + " " + location.getLatitude() + ")");
         Log.d("currentLoc", loc);
 
         kirimLoc(loc);
@@ -183,101 +261,89 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    public boolean checkLocationPermission(){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Asking user if explanation is needed
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-                //Prompt the user once explanation has been shown
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    // permission was granted. Do the
-                    // contacts-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
-
-                        if (mGoogleApiClient == null) {
-                            buildGoogleApiClient();
-                        }
-                        mMap.setMyLocationEnabled(true);
-                    }
-
-                } else {
-
-                    // Permission denied, Disable the functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other permissions this app might request.
-            // You can add here other case statements according to your requirement.
-        }
-    }
-
     private void kirimLoc(final String location) {
         HashMap<String, String> user = db.getUserDetails();
 
         String user_id = user.get("user_id");
 
-        calander = Calendar.getInstance();
-        simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String updatedat = simpledateformat.format(calander.getTime());
+        Date date = Calendar.getInstance().getTime();
+        String now = date.getYear() + "-" + date.getMonth() + "-" + date.getDate() + " " + date.getHours() +  ":" + date.getMinutes() + ":" + date.getSeconds();
+
+//        calander = Calendar.getInstance();
+//        simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+//        String updatedat = simpledateformat.format(calander.getTime());
 
         Log.d("cobaUser", user_id);
         Log.d("cobaUser", location);
-        Log.d("cobaUser", updatedat);
+        Log.d("cobaUser", now);
 
-        UserMovBody body = new UserMovBody(Integer.parseInt(user_id), location, updatedat);
+        UserMovBody body = new UserMovBody(Integer.parseInt(user_id), location, now);
         mApiService.locationRequest("application/json", body)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d("responCode", String.valueOf(response.code()));
+
                         if(response.isSuccessful()) {
+                            Log.d("responCode", "Sukses");
                             Toast.makeText(mContext, "Berhasil", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(mContext, "Error : " + response.code(), Toast.LENGTH_SHORT).show();
                         }
-                    }
+                      }
+
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.e("debug", "onFailure: ERROR > " + t.getMessage());
                         Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    //mengambar polygon
+    private void addGird(final ArrayList outer) {
+        PolygonOptions polygonOptions = new PolygonOptions();
+        polygonOptions.addAll(outer);
+        polygonOptions.strokeColor(Color.rgb(30, 30, 30));
+        polygonOptions.fillColor(Color.parseColor("#6627ae60"));
+        polygonOptions.strokeWidth(1);
+        mMap.addPolygon(polygonOptions);
+
+    }
+
+    public void getGird() {
+        mApiService.getGird()
+                .enqueue(new Callback<List<GirdBody>>() {
+                    @Override
+                    public void onResponse(Call<List<GirdBody>> call, Response<List<GirdBody>> response) {
+                        Log.d("Doing", "res code :" + response.code() );
+                        if (response.isSuccessful()) {
+                            List<GirdBody> list = response.body();
+                            for (int i =0; i < list.size(); i++){
+                                tepi = list.get(i).getGeom().replace("MULTIPOLYGON(((","").replace(")))","").split(",");
+
+                                ArrayList outer = new ArrayList<LatLng>();
+                                for (String aTepi : tepi) {
+                                    Log.d("poli", aTepi);
+                                    String[] latlng = aTepi.split(" ");
+                                    batas = new LatLng(Double.parseDouble(latlng[1]), Double.parseDouble(latlng[0]));
+                                    outer.add(batas);
+                                    Log.d("poli", String.valueOf(batas));
+                                }
+
+                                addGird(outer);
+                            }
+                        }  else {
+                            Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<List<GirdBody>> call, Throwable t) {
+                        Log.e("debug", "onFailure: ERROR > " + t.getMessage());
+                        Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+
                     }
                 });
     }

@@ -1,7 +1,12 @@
 package com.ramadhany.vodjo.latihan1;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -72,6 +77,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //starting service
+        //startService(new Intent(MainActivity.this, MyService.class));
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        String latitude = intent.getStringExtra(LocationMonitoringService.EXTRA_LATITUDE);
+                        String longitude = intent.getStringExtra(LocationMonitoringService.EXTRA_LONGITUDE);
+
+                        Log.d("LatLang", latitude + " " + longitude);
+
+                        if (latitude != null && longitude != null) {
+                            Log.d("LatLang", latitude + "" + longitude);
+                        }
+                    }
+                }, new IntentFilter(LocationMonitoringService.ACTION_LOCATION_BROADCAST)
+        );
     }
 
      @Override
