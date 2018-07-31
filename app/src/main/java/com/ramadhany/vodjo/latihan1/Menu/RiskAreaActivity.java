@@ -3,6 +3,7 @@ package com.ramadhany.vodjo.latihan1.Menu;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.ramadhany.vodjo.latihan1.R;
 
@@ -10,12 +11,18 @@ import com.ramadhany.vodjo.latihan1.R;
 
 public class RiskAreaActivity extends AppCompatActivity {
 
+    TextView txtRiskArea;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_riskarea);
         setTitle("Risk of Area");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        txtRiskArea = findViewById(R.id.inRisk);
+
+        txtRiskArea.setText("0");
     }
 
     @Override

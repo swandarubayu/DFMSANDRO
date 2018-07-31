@@ -6,18 +6,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 
 import com.ramadhany.vodjo.latihan1.Controller.Setting;
+import com.ramadhany.vodjo.latihan1.Menu.AboutActivity;
 import com.ramadhany.vodjo.latihan1.Menu.MapsActivity;
 import com.ramadhany.vodjo.latihan1.Menu.RiskAreaActivity;
 import com.ramadhany.vodjo.latihan1.Menu.UserProfActivity;
-import com.ramadhany.vodjo.latihan1.Menu.AboutActivity;
 import com.ramadhany.vodjo.latihan1.View.LoginActivity;
 import com.ramadhany.vodjo.latihan1.helper.SQLiteHandler;
 import com.ramadhany.vodjo.latihan1.helper.SessionManager;
@@ -141,9 +141,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         new Setting(this).checkEnableGPS();
-        new Setting(this).forceEnableGPSAcess();
         new Setting(this).getLocation();
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        new Setting(this).checkEnableGPS();
+        new Setting(this).getLocation();
+    }
 }

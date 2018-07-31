@@ -85,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
             checkGpsStatus();
-            checkGpsStatus();
+            checkPermission();
         }
 
         mContext = this;
@@ -196,6 +196,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         registerLocationUpdate();
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
     }
 
     protected synchronized void buildGoogleApiClient() {
@@ -233,12 +236,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        if (mCurrLocationMarker != null) {
 //            mCurrLocationMarker.remove();
 //        }
+        Log.e("Doing ", "get LocationChanged 1");
+
 
         if (location != null && checkDistance(location)){
 
             myLocation = location;
 
             Log.d("cobaUser", "doing udpate 2");
+            Log.e("Doing ", "get LocationChanged 2");
 
             //Place current location marker
             LatLng latLng = new LatLng(location.getLongitude(), location.getLatitude());
@@ -298,10 +304,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         locationManager.requestLocationUpdates(provider, 1L, 1f, (android.location.LocationListener) this);
 
+        Log.e("Doing", "doing rergisterLocation  1");
+
         Location oldLocation = locationManager.getLastKnownLocation(provider);
         if (mCurrLocationMarker == null && oldLocation != null && checkDistance(oldLocation)){
 
             Log.d("cobaUser", "doing udpate 1");
+            Log.e("Doing", "doing rergisterLocation  2");
             myLocation = oldLocation;
 
             String loc = "POINT(" + String.valueOf(oldLocation.getLongitude() + " " + oldLocation.getLatitude() + ")");

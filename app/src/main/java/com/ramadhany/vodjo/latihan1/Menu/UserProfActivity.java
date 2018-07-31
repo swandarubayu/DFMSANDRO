@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.SQLiteHandler;
-import com.ramadhany.vodjo.latihan1.helper.SessionManager;
 
 import java.util.HashMap;
 
@@ -18,7 +17,7 @@ import java.util.HashMap;
 public class UserProfActivity extends AppCompatActivity {
 
     private SQLiteHandler db;
-    private TextView txtUsername, txtDomisili;
+    private TextView txtUsername, txtDomisili, txtNama;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +34,15 @@ public class UserProfActivity extends AppCompatActivity {
 
         String username = user.get("username");
         String domisili = user.get("domisili");
+        String nama = user.get("nama");
 
+        txtNama = (TextView) findViewById(R.id.nama);
         txtUsername = (TextView) findViewById(R.id.username);
         txtDomisili = (TextView) findViewById(R.id.user_dom);
 
         txtUsername.setText(username);
         txtDomisili.setText(domisili);
+        txtNama.setText(nama);
 
     }
 

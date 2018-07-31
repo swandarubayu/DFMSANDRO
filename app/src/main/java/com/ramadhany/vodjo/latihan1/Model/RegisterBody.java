@@ -8,6 +8,22 @@ public class RegisterBody {
     private String username;
     private String password;
     private String domisili;
+    private String nama;
+
+    public RegisterBody(String username, String password, String domisili, String nama) {
+        this.username = username;
+        this.password = password;
+        this.domisili = domisili;
+        this.nama = nama;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
 
     public RegisterBody(String username, String password, String domisili) {
         this.username = username;

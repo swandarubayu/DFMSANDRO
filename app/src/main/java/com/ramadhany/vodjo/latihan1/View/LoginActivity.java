@@ -3,8 +3,8 @@ package com.ramadhany.vodjo.latihan1.View;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.ramadhany.vodjo.latihan1.MainActivity;
 import com.ramadhany.vodjo.latihan1.Model.LoginBody;
 import com.ramadhany.vodjo.latihan1.Model.Response.ResponseLogin;
-import com.ramadhany.vodjo.latihan1.MyService;
 import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.ApiService;
 import com.ramadhany.vodjo.latihan1.helper.SQLiteHandler;
@@ -24,7 +23,6 @@ import com.ramadhany.vodjo.latihan1.helper.UtilsApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Body;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -101,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                                     session.setLogin(true);
 
                                     String username = response.body().username;
+                                    String nama = response.body().nama;
                                     String user_id = String.valueOf(response.body().id);
                                     String domisili = String.valueOf(response.body().domisili);
 
@@ -111,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                    db.addUser(username, user_id, domisili);
+                                    db.addUser(nama, username, user_id, domisili);
                                 }else {
                                     Toast.makeText(mContext, "Username tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }

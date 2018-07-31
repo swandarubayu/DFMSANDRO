@@ -7,6 +7,7 @@ package com.ramadhany.vodjo.latihan1.Model.Response;
 public class ResponseLogin {
     public int id;
     public String username;
+    public String nama;
     public String domisili;
     public boolean error;
 }

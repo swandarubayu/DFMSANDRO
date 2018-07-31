@@ -3,8 +3,8 @@ package com.ramadhany.vodjo.latihan1.View;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +17,6 @@ import com.ramadhany.vodjo.latihan1.R;
 import com.ramadhany.vodjo.latihan1.helper.ApiService;
 import com.ramadhany.vodjo.latihan1.helper.UtilsApi;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,7 +27,7 @@ public class DaftarActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     EditText etDomisili;
-
+    EditText edtNama;
 
     Button btnRegister;
     TextView txtLogin;
@@ -57,6 +52,8 @@ public class DaftarActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         etDomisili = (EditText) findViewById(R.id.etDomisili);
+        edtNama = findViewById(R.id.edtNama);
+
         btnRegister = (Button) findViewById(R.id.btnRegister);
         txtLogin = (TextView) findViewById(R.id.txtLogin);
 
@@ -78,7 +75,7 @@ public class DaftarActivity extends AppCompatActivity {
     }
 
     private void requestRegister() {
-        RegisterBody body = new RegisterBody(etUsername.getText().toString(),etPassword.getText().toString(),etDomisili.getText().toString());
+        RegisterBody body = new RegisterBody(etUsername.getText().toString(),etPassword.getText().toString(),etDomisili.getText().toString(), edtNama.getText().toString());
             mApiService.registerRequest("application/json", body)
 
                     .enqueue(new Callback<ResponseBody>() {

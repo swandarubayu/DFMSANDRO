@@ -29,11 +29,12 @@ public class SQLiteHandler  extends SQLiteOpenHelper {
     // Login Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
+    private static final String KEY_NAMA = "nama";
     private static final String KEY_USER_ID = "user_id";
     private static final String KEY_DOMISILI = "domisili";
 
     private static final String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-            + KEY_ID + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT UNIQUE,"
+            + KEY_ID + " INTEGER PRIMARY KEY," + KEY_USERNAME + " TEXT UNIQUE," + KEY_NAMA + " TEXT UNIQUE,"
             + KEY_USER_ID + " INTEGER UNIQUE," + KEY_DOMISILI + " TEXT" + ")";
 
     public SQLiteHandler(Context context) {
@@ -60,11 +61,12 @@ public class SQLiteHandler  extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String username, String user_id, String domisili) {
+    public void addUser(String nama, String username, String user_id, String domisili) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_USERNAME, username); // Username
+        values.put(KEY_NAMA, nama); // Username
         values.put(KEY_USER_ID, user_id); // domisili
         values.put(KEY_DOMISILI, domisili); // domisili
 
@@ -89,8 +91,9 @@ public class SQLiteHandler  extends SQLiteOpenHelper {
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
             user.put("username", cursor.getString(1));
-            user.put("user_id", cursor.getString(2));
-            user.put("domisili", cursor.getString(3));
+            user.put("nama", cursor.getString(2));
+            user.put("user_id", cursor.getString(3));
+            user.put("domisili", cursor.getString(4));
         }
         cursor.close();
         db.close();

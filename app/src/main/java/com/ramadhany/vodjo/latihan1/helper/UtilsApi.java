@@ -8,7 +8,7 @@ public class UtilsApi {
     // 10.0.2.2 ini adalah localhost.
     // bisa juga di masukan dengan IP address kalian
     public static final String BASE_URL_API =
-            "http://crimegis.xyz:8787/api/";
+            "http://192.168.43.80:8787/api/";
 
 
     // Mendeklarasikan Interface BaseApiService
